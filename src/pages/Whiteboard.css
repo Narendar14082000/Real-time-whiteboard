@@ -1,0 +1,14 @@
+.whiteboard-container {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    background-color: #ffffff; /* Set white background */
+}
+
+.tools {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 10px;
+}
