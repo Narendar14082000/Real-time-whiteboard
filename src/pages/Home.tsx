@@ -1,25 +1,33 @@
 import React, { useState } from 'react';
-import { Button, Form, Container, Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Button, Form, Container, Row, Col, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
+import { keycloak } from '../keycloak';  // Import keycloak instance
 
 const Home: React.FC = () => {
     const [username, setUsername] = useState('');
     const [roomId, setRoomId] = useState('');
-    const navigate = useNavigate(); // Initialize navigate
+    const [error, setError] = useState('');  // State for error messages
+    const navigate = useNavigate();
+
+    const authenticatedUsername = keycloak.tokenParsed?.preferred_username;  // Get authenticated username from Keycloak
 
     const handleJoinRoom = () => {
-        // Navigate to the whiteboard with username and roomId as query params
-        if (username && roomId) {
+        if (username === authenticatedUsername) {
+            // Navigate to the whiteboard with username and roomId as query params
             navigate(`/whiteboard?username=${username}&roomId=${roomId}`);
+        } else {
+            setError('Username does not match the authenticated user. Please enter the correct username.');
         }
     };
 
     const handleCreateRoom = () => {
-        // Generate a unique Room ID and navigate to the whiteboard
-        const newRoomId = Math.random().toString(36).substring(2, 10); // Generate a random roomId
-        if (username) {
+        if (username === authenticatedUsername) {
+            // Generate a unique Room ID and navigate to the whiteboard
+            const newRoomId = Math.random().toString(36).substring(2, 10);
             navigate(`/whiteboard?username=${username}&roomId=${newRoomId}`);
+        } else {
+            setError('Username does not match the authenticated user. Please enter the correct username.');
         }
     };
 
@@ -30,6 +38,9 @@ const Home: React.FC = () => {
                     <h1 className="app-title">Collaborative Whiteboard</h1>
                     <p className="text-muted">Join a room to collaborate or create your own session!</p>
                 </div>
+
+                {error && <Alert variant="danger">{error}</Alert>}  {/* Display error if any */}
+
                 <Form className="form-section w-100" style={{ maxWidth: '500px' }}>
                     <Form.Group className="mb-4">
                         <Form.Label>User Name</Form.Label>
