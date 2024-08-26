@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';  // Import useLocation
+import React, { useState, useRef, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom'; 
 import { Stage, Layer, Line } from 'react-konva';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
+import { keycloak } from '../keycloak';
 import './Whiteboard.css';
 
 function useQuery() {
@@ -15,16 +16,60 @@ const Whiteboard: React.FC = () => {
     const [color, setColor] = useState('#000000');
     const [lineWidth, setLineWidth] = useState(5);
     const stageRef = useRef<any>(null);
+    const wsRef = useRef<WebSocket | null>(null);
+    const navigate = useNavigate();
 
     const query = useQuery();
-    const username = query.get('username');  // Get username from query params
-    const roomId = query.get('roomId');      // Get roomId from query params
+    const username = query.get('username');  
+    const roomId = query.get('roomId');      
+
+    useEffect(() => {
+        if (!roomId || !username) {
+            navigate('/');  
+            return;
+        }
+
+        const ws = new WebSocket('ws://localhost:3000');
+        wsRef.current = ws;
+
+        ws.onopen = () => {
+            ws.send(JSON.stringify({ type: 'join', roomId, username }));
+        };
+
+        ws.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+
+            if (message.type === 'drawing') {
+                setLines((prevLines) => [...prevLines, message.line]);
+            } else if (message.type === 'room-lines') {
+                setLines(message.lines);
+            } else if (message.type === 'user-joined') {
+                console.log(`${message.username} joined the room.`);
+            }
+        };
+
+        ws.onclose = () => {
+            console.log('WebSocket connection closed.');
+        };
+
+        return () => {
+            ws.close();
+        };
+    }, [roomId, username, navigate]);
+
+    const broadcastDrawing = (line: any) => {
+        if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+            wsRef.current.send(JSON.stringify({ type: 'drawing', roomId, line }));
+        }
+    };
 
     const handleMouseDown = () => {
         setIsDrawing(true);
         const stage = stageRef.current;
         const pos = stage.getPointerPosition();
-        setLines([...lines, { tool, color, lineWidth, points: [pos.x, pos.y] }]);
+        const newLine = { tool, color, lineWidth, points: [pos.x, pos.y] };
+        setLines([...lines, newLine]);
+        broadcastDrawing(newLine);
     };
 
     const handleMouseMove = () => {
@@ -35,14 +80,34 @@ const Whiteboard: React.FC = () => {
         lastLine.points = lastLine.points.concat([point.x, point.y]);
         lines.splice(lines.length - 1, 1, lastLine);
         setLines([...lines]);
+        broadcastDrawing(lastLine);
     };
 
     const handleMouseUp = () => {
         setIsDrawing(false);
     };
 
+    const handleLogout = () => {
+        keycloak.logout();
+    };
+
+    const handleBackToHome = () => {
+        navigate('/');
+    };
+
     return (
         <Container fluid className="whiteboard-container">
+            <Row className="mb-4">
+                
+                <Col className="d-flex justify-content-end">
+                <Button variant="secondary" onClick={handleBackToHome}>
+                        Back to Home
+                    </Button>
+                    <Button variant="danger" onClick={handleLogout}>
+                        Logout
+                    </Button>
+                </Col>
+            </Row>
             <div className="header text-center mb-4">
                 <h2>Welcome, {username}! Room ID: {roomId}</h2>
             </div>
