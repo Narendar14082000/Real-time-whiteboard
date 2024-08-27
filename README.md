@@ -27,17 +27,17 @@ The Real-Time Collaborative Whiteboard is a web application designed for seamles
 
 ## Screenshots
 
-![Whiteboard Interface](./screenshots/whiteboard_interface.png)
-*Caption: The main interface of the Real-Time Collaborative Whiteboard.*
+![LoginPage](./images/loginpage.png)
+*Caption: The login using keycloak interface of the Real-Time Collaborative Whiteboard.*
 
-![Real-Time Collaboration](./screenshots/real_time_collaboration.png)
+![SignUpPage](./images/SignupPage.png)
 *Caption: Real-time collaboration with multiple users interacting on the whiteboard.*
 
-![Image Upload](./screenshots/image_upload.png)
-*Caption: Uploading images directly onto the whiteboard.*
+![HomePage](./images/HomePage.png)
+*Caption: Home page for the whiteboard.*
 
-![Machine Learning Predictions](./screenshots/machine_learning_predictions.png)
-*Caption: Real-time predictions enhancing user input.*
+![Whiteboard Interface](./images/WhiteboardPage.png)
+*Caption: Real-time collaboration with multiple users interacting on the whiteboard.*
 
 ## Setup and Installation
 
@@ -61,13 +61,7 @@ The Real-Time Collaborative Whiteboard is a web application designed for seamles
 
 The project is deployed on Vercel. You can access the live application [here](https://your-vercel-url.vercel.app).
 
-## Contributing
 
-Contributions are welcome! Please fork the repository and submit a pull request with your changes.
-
-## License
-
-This project is licensed under the MIT License.
 
 ---
 
