@@ -1,46 +1,73 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+# Real-Time Collaborative Whiteboard
 
-### `npm start`
+## Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The Real-Time Collaborative Whiteboard is a web application designed for seamless collaboration among multiple users. This application allows users to draw, upload images, and interact with a shared whiteboard in real-time. With advanced features like machine learning predictions, undo/redo actions, and secure authentication, this whiteboard is perfect for both educational and professional environments.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Key Features
+- **Real-Time Collaboration**: Multiple users can interact with the whiteboard simultaneously, with live cursor tracking.
+- **Image Uploads**: Users can upload images to the whiteboard for annotation or reference.
+- **Drawing Tools**: A variety of drawing tools are available, allowing for freehand drawing, shapes, and text.
+- **Machine Learning Predictions**: The whiteboard can make real-time predictions based on user input, enhancing the collaborative experience.
+- **Undo/Redo Actions**: Users can easily undo or redo actions, making the whiteboard flexible for complex tasks.
+- **Content Saving**: Save the whiteboard content locally or to the cloud for future reference.
+- **Secure Authentication**: Integrated with Keycloak, the application ensures that only authorized users can access the whiteboard.
+- **Responsive Design**: The whiteboard is fully responsive, ensuring a smooth experience across all devices.
+- **Professional UX**: Built with Bootstrap 5, the application offers a clean, user-friendly interface.
 
-### `npm test`
+### Technologies Used
+- **Frontend**: React, TypeScript, Bootstrap 5
+- **Backend**: Node.js, Express.js
+- **Authentication**: Keycloak
+- **Deployment**: Vercel
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Screenshots
 
-### `npm run build`
+![Whiteboard Interface](./screenshots/whiteboard_interface.png)
+*Caption: The main interface of the Real-Time Collaborative Whiteboard.*
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Real-Time Collaboration](./screenshots/real_time_collaboration.png)
+*Caption: Real-time collaboration with multiple users interacting on the whiteboard.*
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Image Upload](./screenshots/image_upload.png)
+*Caption: Uploading images directly onto the whiteboard.*
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Machine Learning Predictions](./screenshots/machine_learning_predictions.png)
+*Caption: Real-time predictions enhancing user input.*
 
-### `npm run eject`
+## Setup and Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/real-time-collaborative-whiteboard.git
+   ```
+2. **Install dependencies**:
+   ```bash
+   cd real-time-collaborative-whiteboard
+   npm install
+   ```
+3. **Start the development server**:
+   ```bash
+   npm start
+   ```
+4. **Access the application**:
+   Open `http://localhost:3000` in your web browser.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Deployment
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The project is deployed on Vercel. You can access the live application [here](https://your-vercel-url.vercel.app).
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Contributing
 
-## Learn More
+Contributions are welcome! Please fork the repository and submit a pull request with your changes.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project is licensed under the MIT License.
+
+---
+
